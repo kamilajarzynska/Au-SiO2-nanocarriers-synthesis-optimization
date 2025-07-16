@@ -1,0 +1,110 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[9]:
+
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import joblib
+from matplotlib import cm
+from matplotlib.colors import Normalize
+from statsmodels.tools.tools import add_constant
+
+# PAGE TITLE
+st.set_page_config(page_title="Desirability app", layout="centered")
+st.title("🎯 Au@SiO2 nanoparticle optimization")
+
+# DATA LOADING
+df = pd.read_excel("BDD_plan_Au@SiO2.xlsx")
+grid = pd.read_csv("grid.csv")
+desirability = np.load("desirability.npy")
+model_zeta = joblib.load("model_zeta.pkl")
+model_shell = joblib.load("model_shell.pkl")
+scaler = joblib.load("scaler.pkl")
+
+predictors = ['Temperature (°C)', 'TEOS (µL)', 'Time (h)']
+
+# SLIDERS
+st.sidebar.header("🔧 Select Experimental Parameters")
+temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()))
+teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()))
+time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()))
+
+# PREDICTION
+def prepare_point(temp_val, teos_val, time_val):
+    point = pd.DataFrame({
+        'Temperature (°C)': [temp_val],
+        'TEOS (µL)': [teos_val],
+        'Time (h)': [time_val]
+    })
+    expected_cols = scaler.feature_names_in_
+    point_scaled = pd.DataFrame(scaler.transform(point[expected_cols]), columns=expected_cols)
+
+    for p in predictors:
+        point_scaled[f'{p}^2'] = point_scaled[p]**2
+
+    for term in model_zeta.model.exog_names:
+        if ':' in term:
+            a, b = term.split(':')
+            point_scaled[term] = point_scaled[a] * point_scaled[b]
+
+    point_const = add_constant(point_scaled, has_constant='add')
+    return point_const
+
+pt = prepare_point(temp_val, teos_val, time_val)
+z_pred = model_zeta.predict(pt[model_zeta.model.exog_names])
+s_pred = model_shell.predict(pt[model_shell.model.exog_names])
+
+# DESIRABILITY FUNCTION
+def d_min(x, low_good, high_bad):
+    return np.where(x <= low_good, 1.0,
+                    np.where(x >= high_bad, 0.0,
+                             (high_bad - x) / (high_bad - low_good)))
+
+d_z = d_min(z_pred, -40, -30)
+d_s = d_min(s_pred, 25, 45)
+des_score = (d_z**0.3) * (d_s**0.7)
+
+# RESULTS
+st.markdown(f"""
+### 🧪 Prediction results
+- **Zeta potential:** {z_pred[0]:.2f} mV
+- **Shell thickness:** {s_pred[0]:.2f} nm
+- **Desirability score:** {des_score[0]:.3f}
+""")
+
+# === WYKRES 3D ===
+st.markdown("### 📊 3D visualization")
+fig = plt.figure(figsize=(6, 5))
+ax = fig.add_subplot(111, projection='3d')
+norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
+sm = cm.ScalarMappable(cmap='viridis', norm=norm)
+sm.set_array([])
+cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right")
+cbar.set_label('Desirability', fontsize=8)
+cbar.ax.tick_params(labelsize=6)
+ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
+           c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
+ax.scatter(time_val, teos_val, temp_val, color='red', s=100, marker='x', edgecolor='black', linewidth=2, zorder=20)
+ax.set_xlabel('Time (h)', fontsize=8, labelpad=-7)
+ax.set_ylabel('TEOS (µL)', fontsize=8, labelpad=-7)
+ax.set_zlabel('Temperature (°C)', fontsize=8, labelpad=-7)
+ax.tick_params(axis='both', which='major', labelsize=6, width=0.1, pad=-2)
+ax.xaxis.line.set_linewidth(0.5)
+ax.yaxis.line.set_linewidth(0.5)
+ax.zaxis.line.set_linewidth(0.5)
+ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0)) 
+ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+plt.tight_layout()
+st.pyplot(fig)
+
+
+# In[ ]:
+
+
+
+
