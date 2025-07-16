@@ -14,11 +14,11 @@ from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
 # PAGE TITLE
-st.set_page_config(page_title="Desirability app", layout="centered")
+st.set_page_config(page_title="Au@SiO2 nanoparticle optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanoparticle optimization")
 
 # DATA LOADING
-df = pd.read_excel("BDD_plan_Au@SiO2.xlsx")
+df = pd.read_excel("BBD_plan_Au@SiO2.xlsx")
 grid = pd.read_csv("grid.csv")
 desirability = np.load("desirability.npy")
 model_zeta = joblib.load("model_zeta.pkl")
@@ -28,7 +28,7 @@ scaler = joblib.load("scaler.pkl")
 predictors = ['Temperature (°C)', 'TEOS (µL)', 'Time (h)']
 
 # SLIDERS
-st.sidebar.header("🔧 Select Experimental Parameters")
+st.sidebar.header("🔧 Select experimental parameters")
 temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()))
 teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()))
 time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()))
