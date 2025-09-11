@@ -13,39 +13,6 @@ from matplotlib import cm
 from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
-# === FONTS: prefer San Francisco on macOS, with fallbacks ===
-import sys
-import matplotlib as mpl
-from matplotlib import font_manager as fm
-
-def _pick_sf_like_font():
-    # Kandydaci z macOS i paczki Apple SF (jeśli ktoś zainstaluje)
-    candidates = [
-        ".SF Compact", ".SF NS", ".SF Pro", "SF Pro Display", "SF Pro Text",
-        ".SF Compact Rounded", ".SF NS Rounded", ".SF Georgian", ".SF Arabic",
-        "San Francisco"  # czasem alias
-    ]
-    available = {f.name for f in fm.fontManager.ttflist}
-    for name in candidates:
-        # dopasuj „zawiera”, bo nazwy bywają rozszerzone wariantami
-        if any(name_part in f for f in available for name_part in [name]):
-            return name
-    return None
-
-sf_name = _pick_sf_like_font()
-
-if sys.platform == "darwin" and sf_name:
-    # macOS + SF dostępna
-    mpl.rcParams["font.family"] = [sf_name]
-else:
-    # Fallbacki w stylu „system-ui”
-    mpl.rcParams["font.family"] = ["Segoe UI", "Roboto", "Ubuntu", "DejaVu Sans", "sans-serif"]
-
-# (opcjonalnie) ujednolicenie stylu osi/tytułów
-mpl.rcParams["axes.titleweight"] = "bold"
-mpl.rcParams["axes.labelweight"] = "bold"
-
-
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
@@ -122,9 +89,9 @@ cbar.set_label('Desirability', fontsize=12, fontfamily="Arial", fontweight="bold
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', edgecolor='black', linewidth=3, zorder=20)
-ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontfamily=".SF Compact", fontweight="bold")
-ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontfamily="Calibri", fontweight="bold")
-ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
+ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontweight="bold")
+ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontweight="bold")
+ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontweight="bold")
 ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
