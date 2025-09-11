@@ -100,7 +100,7 @@ cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
 
 font_lbl = fm.FontProperties(family="Carlito", weight="bold", size=14) #new
 cbar.set_label('Desirability', fontsize=12, fontproperties=font_lbl) #new
-font_lbl_small = fm.FontProperties(family="Carlito", size=8)  # albo Calibri, jeśli dostępna
+font_lbl_small = fm.FontProperties(family="Carlito", size=10)  # albo Calibri, jeśli dostępna
 for label in cbar.ax.get_yticklabels():
     label.set_fontproperties(font_lbl_small)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
