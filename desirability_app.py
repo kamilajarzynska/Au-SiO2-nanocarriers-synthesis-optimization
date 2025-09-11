@@ -88,7 +88,7 @@ norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
 cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
-cbar.set_label('Desirability', fontsize=12, fontfamily="Arial", fontweight="bold")
+cbar.set_label('Desirability', fontsize=12, fontweight="bold")
 #cbar.ax.tick_params(labelsize=6)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
