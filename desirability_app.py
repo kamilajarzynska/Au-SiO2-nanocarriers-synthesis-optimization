@@ -14,7 +14,7 @@ from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
 # PAGE TITLE
-st.set_page_config(page_title="Au@SiO2 nanoparticle optimization", layout="centered")
+st.set_page_config(page_title="Au@SiO2 nanoplatform optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanoparticle optimization")
 
 # DATA LOADING
