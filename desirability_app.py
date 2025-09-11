@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[ ]:
 
 
 import streamlit as st
@@ -28,7 +28,7 @@ scaler = joblib.load("scaler.pkl")
 predictors = ['Temperature (°C)', 'TEOS (µL)', 'Time (h)']
 
 # SLIDERS
-st.sidebar.header("🔧 Select experimental parameters")
+st.sidebar.header("🔧 SELECT SYNTHESIS PARAMETERS")
 temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()))
 teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()))
 time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()))
@@ -70,29 +70,29 @@ des_score = (d_z**0.3) * (d_s**0.7)
 
 # RESULTS
 st.markdown(f"""
-### 🧪 Prediction results
-- **Zeta potential:** {z_pred[0]:.2f} mV
-- **Shell thickness:** {s_pred[0]:.2f} nm
-- **Desirability score:** {des_score[0]:.3f}
+### ⌨️ RESULTS
+- **Predicted zeta potential:** {z_pred[0]:.2f} mV
+- **Predicted shell thickness:** {s_pred[0]:.2f} nm
+- **Global desirability score:** {des_score[0]:.3f}
 """)
 
 # === WYKRES 3D ===
-st.markdown("### 📊 3D visualization")
+st.markdown("### 📊 3D VISUALIZATION")
 fig = plt.figure(figsize=(6, 5))
 ax = fig.add_subplot(111, projection='3d')
 norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
-cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right")
-cbar.set_label('Desirability', fontsize=8)
-cbar.ax.tick_params(labelsize=6)
+cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
+cbar.set_label('Desirability', fontsize=12, fontfamily="Arial", fontweight="bold")
+#cbar.ax.tick_params(labelsize=6)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
-ax.scatter(time_val, teos_val, temp_val, color='red', s=100, marker='x', edgecolor='black', linewidth=2, zorder=20)
-ax.set_xlabel('Time (h)', fontsize=8, labelpad=-7)
-ax.set_ylabel('TEOS (µL)', fontsize=8, labelpad=-7)
-ax.set_zlabel('Temperature (°C)', fontsize=8, labelpad=-7)
-ax.tick_params(axis='both', which='major', labelsize=6, width=0.1, pad=-2)
+ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', edgecolor='black', linewidth=3, zorder=20)
+ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
+ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
+ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
+ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
 ax.zaxis.line.set_linewidth(0.5)
@@ -101,6 +101,7 @@ ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 plt.tight_layout()
 st.pyplot(fig)
+plt.close(fig)
 
 
 # In[ ]:
