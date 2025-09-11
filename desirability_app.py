@@ -13,6 +13,19 @@ from matplotlib import cm
 from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
+import matplotlib as mpl
+from matplotlib import font_manager as fm
+from pathlib import Path
+
+# Rejestracja Carlito - new
+font_dir = Path(__file__).parent / "assets" / "fonts"
+if font_dir.exists():
+    for fp in font_dir.glob("*.ttf"):
+        fm.fontManager.addfont(str(fp))
+    mpl.rcParams["font.family"] = ["Carlito", "DejaVu Sans"]
+else:
+    mpl.rcParams["font.family"] = ["DejaVu Sans"]
+
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
@@ -84,16 +97,20 @@ norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
 cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
-cbar.set_label('Desirability', fontsize=12, fontweight="bold")
+
+font_lbl = fm.FontProperties(family="Carlito", weight="bold", size=14) #new
+cbar.set_label('Desirability', fontsize=12, fontproperties=font_lbl) #new
 for label in cbar.ax.get_yticklabels(): ##new
     label.set_fontsize(8) ##new
     label.set_fontname("Calibri") ##new
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
-ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontweight="bold")
-ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontweight="bold")
-ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontweight="bold")
+
+
+ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
+ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
+ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
 ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
