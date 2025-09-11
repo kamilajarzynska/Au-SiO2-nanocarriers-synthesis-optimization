@@ -14,8 +14,8 @@ from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
 # PAGE TITLE
-st.set_page_config(page_title="Au@SiO2 nanoplatform synthesis optimization", layout="centered")
-st.title("🎯 Au@SiO2 nanoplatform synthesis optimization")
+st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
+st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
 
 # DATA LOADING
 df = pd.read_excel("BBD_plan_Au@SiO2.xlsx")
@@ -84,14 +84,14 @@ norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
 cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right")
-cbar.set_label('Desirability', fontsize=8, fontweight="bold")
+cbar.set_label('Desirability', fontsize=8)
 cbar.ax.tick_params(labelsize=6)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=100, marker='x', edgecolor='black', linewidth=2, zorder=20)
-ax.set_xlabel('Time (h)', fontsize=8, labelpad=-7, weight="bold")
-ax.set_ylabel('TEOS (µL)', fontsize=8, labelpad=-7, weight="bold")
-ax.set_zlabel('Temperature (°C)', fontsize=8, labelpad=-7, weight="bold")
+ax.set_xlabel('Time (h)', fontsize=8, labelpad=-7)
+ax.set_ylabel('TEOS (µL)', fontsize=8, labelpad=-7)
+ax.set_zlabel('Temperature (°C)', fontsize=8, labelpad=-7)
 ax.tick_params(axis='both', which='major', labelsize=6, width=0.1, pad=-2)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
