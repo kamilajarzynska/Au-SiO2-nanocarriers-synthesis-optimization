@@ -42,9 +42,9 @@ predictors = ['Temperature (°C)', 'TEOS (µL)', 'Time (h)']
 
 # SLIDERS
 st.sidebar.header("🔧 SELECT SYNTHESIS PARAMETERS")
-temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()))
-teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()))
-time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()))
+temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()), step = 0.1)
+teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()), step = 0.1)
+time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()), step = 0.1)
 
 # PREDICTION
 def prepare_point(temp_val, teos_val, time_val):
@@ -84,9 +84,9 @@ des_score = (d_z**0.3) * (d_s**0.7)
 # RESULTS
 st.markdown(f"""
 ### ⌨️ RESULTS
-- **Predicted zeta potential:** {z_pred[0]:.2f} mV
-- **Predicted shell thickness:** {s_pred[0]:.2f} nm
-- **Global desirability score:** {des_score[0]:.3f}
+- **Predicted zeta potential:** {z_pred[0]:.1f} mV
+- **Predicted shell thickness:** {s_pred[0]:.1f} nm
+- **Global desirability score:** {des_score[0]:.1f}
 """)
 
 # === WYKRES 3D ===
