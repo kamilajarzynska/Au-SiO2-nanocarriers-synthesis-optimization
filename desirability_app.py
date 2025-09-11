@@ -13,10 +13,6 @@ from matplotlib import cm
 from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
-import matplotlib as mpl
-mpl.rcParams['font.family'] = ['DejaVu Sans']  # zawsze dostępna w matplotlib
-mpl.rcParams['font.size'] = 12
-
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
@@ -92,7 +88,7 @@ cbar.set_label('Desirability', fontsize=12, fontweight="bold")
 #cbar.ax.tick_params(labelsize=6)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
-ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', edgecolor='black', linewidth=3, zorder=20)
+ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
 ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontweight="bold")
 ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontweight="bold")
 ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontweight="bold")
