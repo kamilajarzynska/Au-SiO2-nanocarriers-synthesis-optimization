@@ -13,6 +13,9 @@ from matplotlib import cm
 from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
+import matplotlib as mpl
+mpl.rcParams['font.family'] = '.SM Compact'
+
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
 st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
