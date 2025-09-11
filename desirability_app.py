@@ -22,12 +22,6 @@ all_fonts = sorted({f.name for f in fm.fontManager.ttflist})
 st.write("🔎 Dostępne czcionki w tym środowisku:")
 st.write(all_fonts)
 
-# Sprawdzenie, czy Arial jest wśród nich
-if "Arial" in all_fonts:
-    st.success("✅ Arial jest dostępny.")
-else:
-    st.warning("⚠️ Arial NIE jest dostępny – używany będzie fallback (np. DejaVu Sans).")
-
 
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
