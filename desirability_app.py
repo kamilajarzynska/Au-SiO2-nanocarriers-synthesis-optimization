@@ -86,8 +86,7 @@ sm.set_array([])
 cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
 cbar.set_label('Desirability', fontsize=12, fontweight="bold")
 for label in cbar.ax.get_yticklabels():
-    label.set_fontsize(10)          # zmiana rozmiaru
-    label.set_fontweight("bold")    # pogrubienie
+    label.set_fontsize(6)         
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
