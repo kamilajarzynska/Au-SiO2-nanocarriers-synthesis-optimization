@@ -89,7 +89,7 @@ cbar.set_label('Desirability', fontsize=12, fontfamily="Arial", fontweight="bold
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', edgecolor='black', linewidth=3, zorder=20)
-ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
+ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontfamily="San Francisco", fontweight="bold")
 ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
 ax.set_zlabel('Temperature (°C)', fontsize=14, labelpad=0, fontfamily="Arial", fontweight="bold")
 ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
