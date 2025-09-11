@@ -100,9 +100,9 @@ cbar = fig.colorbar(sm, ax=ax, shrink=0.4, aspect=30, location="right", pad=0.1)
 
 font_lbl = fm.FontProperties(family="Carlito", weight="bold", size=14) #new
 cbar.set_label('Desirability', fontsize=12, fontproperties=font_lbl) #new
-for label in cbar.ax.get_yticklabels(): ##new
-    label.set_fontsize(8) ##new
-    label.set_fontname("Calibri") ##new
+font_lbl_small = fm.FontProperties(family="Carlito", size=8)  # albo Calibri, jeśli dostępna
+for label in cbar.ax.get_yticklabels():
+    label.set_fontproperties(font_lbl_small)
 ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
            c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
