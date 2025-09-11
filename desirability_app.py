@@ -26,8 +26,8 @@ else:
     mpl.rcParams["font.family"] = ["DejaVu Sans"]
 
 # PAGE TITLE
-st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
-st.title("🎯 Au@SiO2 nanocarriers synthesis optimization")
+st.set_page_config(page_title="Au@SiO₂ nanocarriers synthesis optimization", layout="centered")
+st.title("🎯 Au@SiO₂ nanocarriers synthesis optimization")
 
 # DATA LOADING
 df = pd.read_excel("BBD_plan_Au@SiO2.xlsx")
