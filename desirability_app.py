@@ -42,9 +42,9 @@ predictors = ['Temperature (°C)', 'TEOS (µL)', 'Time (h)']
 
 # SLIDERS
 st.sidebar.header("🔧 SELECT SYNTHESIS PARAMETERS")
-temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()), step = 0.1)
-teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()), step = 0.1)
-time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()), step = 0.1)
+temp_val = st.sidebar.slider("Temperature (°C)", float(df[predictors[0]].min()), float(df[predictors[0]].max()), float(df[predictors[0]].mean()), step = 0.1, format="%.1f")
+teos_val = st.sidebar.slider("TEOS (µL)", float(df[predictors[1]].min()), float(df[predictors[1]].max()), float(df[predictors[1]].mean()), step = 0.1, format="%.1f")
+time_val = st.sidebar.slider("Time (h)", float(df[predictors[2]].min()), float(df[predictors[2]].max()), float(df[predictors[2]].mean()), step = 0.1, format="%.1f")
 
 # PREDICTION
 def prepare_point(temp_val, teos_val, time_val):
