@@ -13,15 +13,9 @@ from matplotlib import cm
 from matplotlib.colors import Normalize
 from statsmodels.tools.tools import add_constant
 
-import matplotlib.font_manager as fm
-import streamlit as st
-
-# Lista wszystkich czcionek dostępnych w systemie
-all_fonts = sorted({f.name for f in fm.fontManager.ttflist})
-
-st.write("🔎 Dostępne czcionki w tym środowisku:")
-st.write(all_fonts)
-
+import matplotlib as mpl
+mpl.rcParams['font.family'] = ['DejaVu Sans']  # zawsze dostępna w matplotlib
+mpl.rcParams['font.size'] = 12
 
 # PAGE TITLE
 st.set_page_config(page_title="Au@SiO2 nanocarriers synthesis optimization", layout="centered")
