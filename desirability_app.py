@@ -101,17 +101,21 @@ cbar.set_label('Desirability', fontsize=12, fontproperties=font_lbl)
 font_lbl_small = fm.FontProperties(family="Carlito", size=10)
 for label in cbar.ax.get_yticklabels():
     label.set_fontproperties(font_lbl_small)
-ax.scatter(
-    grid['Time (h)'],
-    grid['TEOS (µL)'],
-    grid['Temperature (°C)'],
-    c=desirability,
+
+sc = ax.scatter(
+    grid['Time (h)'].to_numpy(),
+    grid['TEOS (µL)'].to_numpy(),
+    grid['Temperature (°C)'].to_numpy(),
+    c=np.asarray(desirability).ravel(),
     cmap='viridis',
-    s=8,
-    alpha=0.6,
+    vmin=0,
+    vmax=1,
+    s=10,
+    alpha=0.8,
     depthshade=False,
-    zorder=1
+    zorder=30
 )
+
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
 ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
 ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
