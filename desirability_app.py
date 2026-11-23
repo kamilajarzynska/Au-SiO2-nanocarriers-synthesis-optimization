@@ -109,7 +109,6 @@ ax.scatter(
     cmap='viridis',
     s=3,
     alpha=0.4,
-    depthshade=False,
     zorder=1
 )
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
