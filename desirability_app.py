@@ -108,7 +108,7 @@ ax.scatter(
     c=desirability,
     cmap='viridis',
     s=3,
-    alpha=0.4,
+    alpha=0.2,
     zorder=1
 )
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
