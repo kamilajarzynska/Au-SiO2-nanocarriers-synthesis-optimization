@@ -91,11 +91,7 @@ st.markdown(f"""
 # === WYKRES 3D ===
 st.markdown("### 📊 3D VISUALIZATION")
 fig = plt.figure(figsize=(6, 5))
-ax = fig.add_subplot(
-    111,
-    projection='3d',
-    computed_zorder=False
-)
+ax = fig.add_subplot(111, projection='3d')
 norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
@@ -105,18 +101,8 @@ cbar.set_label('Desirability', fontsize=12, fontproperties=font_lbl)
 font_lbl_small = fm.FontProperties(family="Carlito", size=10)
 for label in cbar.ax.get_yticklabels():
     label.set_fontproperties(font_lbl_small)
-
-sc = ax.scatter(
-    grid['Time (h)'],
-    grid['TEOS (µL)'],
-    grid['Temperature (°C)'],
-    c=desirability,
-    cmap='viridis',
-    s=8,
-    alpha=1.0,
-    depthshade=False,
-    zorder=30
-)
+ax.scatter(grid['Time (h)'], grid['TEOS (µL)'], grid['Temperature (°C)'],
+           c=desirability, cmap='viridis', s=2, alpha=0.1, zorder=1)
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
 ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
 ax.set_ylabel('TEOS (µL)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
@@ -125,15 +111,16 @@ ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
 ax.zaxis.line.set_linewidth(0.5)
-ax.xaxis.pane.fill = False
-ax.yaxis.pane.fill = False
-ax.zaxis.pane.fill = False
+ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0)) 
+ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 plt.tight_layout()
 st.pyplot(fig)
 plt.close(fig)
 
 
 # In[ ]:
+
 
 
 
