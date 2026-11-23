@@ -91,16 +91,11 @@ st.markdown(f"""
 # === WYKRES 3D ===
 st.markdown("### 📊 3D VISUALIZATION")
 fig = plt.figure(figsize=(6, 5))
-
-values = np.asarray(desirability).ravel()
-
-st.write("Grid points:", len(grid))
-st.write("Desirability values:", len(values))
-st.write("Finite values:", np.isfinite(values).sum())
-st.write("Min / Max:", np.nanmin(values), np.nanmax(values))
-st.write("Non-zero values:", np.count_nonzero(values))
-
-ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(
+    111,
+    projection='3d',
+    computed_zorder=False
+)
 norm = Normalize(vmin=desirability.min(), vmax=desirability.max())
 sm = cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
