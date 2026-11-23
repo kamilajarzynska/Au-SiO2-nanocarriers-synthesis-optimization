@@ -112,11 +112,10 @@ sc = ax.scatter(
     grid['Temperature (°C)'],
     c=desirability,
     cmap='viridis',
-    vmin=0,
-    vmax=1,
-    s=15,
+    s=8,
     alpha=1.0,
-    depthshade=False
+    depthshade=False,
+    zorder=30
 )
 ax.scatter(time_val, teos_val, temp_val, color='red', s=200, marker='x', linewidth=3, zorder=20)
 ax.set_xlabel('Time (h)', fontsize=14, labelpad=0, fontproperties=font_lbl) #new
