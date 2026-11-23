@@ -107,8 +107,8 @@ ax.scatter(
     grid['Temperature (°C)'],
     c=desirability,
     cmap='viridis',
-    s=8,
-    alpha=0.6,
+    s=3,
+    alpha=0.4,
     depthshade=False,
     zorder=1
 )
