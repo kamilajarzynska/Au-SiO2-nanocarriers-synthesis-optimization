@@ -125,9 +125,9 @@ ax.tick_params(axis='both', which='major', labelsize=10, width=0.1, pad=-1)
 ax.xaxis.line.set_linewidth(0.5)
 ax.yaxis.line.set_linewidth(0.5)
 ax.zaxis.line.set_linewidth(0.5)
-ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0)) 
-ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
-ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax.xaxis.pane.fill = False
+ax.yaxis.pane.fill = False
+ax.zaxis.pane.fill = False
 plt.tight_layout()
 st.pyplot(fig)
 plt.close(fig)
